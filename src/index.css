@@ -9,6 +9,12 @@ body {
   justify-content: center;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 header {
   text-align: center;
   width: 352px;
@@ -89,4 +95,42 @@ header p {
   text-align: center;
   font-size: 18px;
   font-weight: 700;
+}
+
+.keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 40px;
+  max-width: 450px;
+  margin-bottom: 36px;
+}
+
+.keyboard button {
+  background-color: #fcba29;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #d7d7d7;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #262626;
+  font-size: 16px;
+}
+
+.keyboard button:hover {
+  opacity: 0.9;
+}
+
+.new-game {
+  background-color: #11b5e5;
+  border: 1px solid #d7d7d7;
+  border-radius: 4px;
+  width: 225px;
+  height: 40px;
+  padding: 6px 12px;
+  display: block;
+  margin-inline: auto;
+  cursor: pointer;
 }
