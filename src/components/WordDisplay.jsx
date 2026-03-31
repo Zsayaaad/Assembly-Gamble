@@ -1,9 +1,5 @@
-import { useState } from "react";
-
-const WordDisplay = () => {
-  const [currentWord, setCurrentWord] = useState("react");
-
-  const letterElements = currentWord.split("").map((letter, index) => {
+const WordDisplay = ({ word }) => {
+  const letterElements = word.split("").map((letter, index) => {
     return <span key={index}>{letter.toUpperCase()}</span>;
   });
 

@@ -7,15 +7,37 @@ import WordDisplay from "./components/WordDisplay";
 import NewGameButton from "./components/NewGameButton";
 
 function App() {
-  const [guessedLetters, setGuessedLetters] = useState();
+  // Correct letter: display the letter in WordDisplay component & change the key color in keyboard
+  // Wrong letter: kill a language & change the key color in keyboard
+  const [guessedLetters, setGuessedLetters] = useState([]);
+  const [currentWord, setCurrentWord] = useState("react");
+
+  // useEffect(() => {
+  //   const currWordElements = currentWord.split("");
+
+  //   if(currWordElements.includes(guessedLetters[0])) {
+
+  //   }
+
+  // }, [guessedLetters]);
+
+  function addGuessedLetter(letter) {
+    setGuessedLetters((prevLetters) =>
+      prevLetters.includes(letter) ? prevLetters : [...prevLetters, letter],
+    );
+  }
 
   return (
     <main>
       <Header />
       <GameStatus />
       <LanguageTracker />
-      <WordDisplay />
-      <Keyboard />
+      <WordDisplay word={currentWord} />
+      <Keyboard
+        addLetter={addGuessedLetter}
+        word={currentWord}
+        guessedLetters={guessedLetters}
+      />
       <NewGameButton />
     </main>
   );

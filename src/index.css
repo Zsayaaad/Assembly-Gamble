@@ -123,6 +123,14 @@ header p {
   opacity: 0.9;
 }
 
+.keyboard button.correct {
+  background-color: #59e391;
+}
+
+.keyboard button.wrong {
+  background-color: #f06262;
+}
+
 .new-game {
   background-color: #11b5e5;
   border: 1px solid #d7d7d7;
