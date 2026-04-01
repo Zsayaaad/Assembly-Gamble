@@ -5,8 +5,6 @@ body {
   color: #d9d9d9;
   padding: 50px;
   height: 100vh;
-  display: flex;
-  justify-content: center;
 }
 
 main {
@@ -42,8 +40,14 @@ header p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #10a95b;
   margin-block: 30px;
+}
+
+.game-status.won {
+  background-color: #10a95b;
+}
+.game-status.lost {
+  background-color: #ba2a2a;
 }
 
 .game-status h2 {
