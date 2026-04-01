@@ -12,14 +12,9 @@ function App() {
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [currentWord, setCurrentWord] = useState("react");
 
-  // useEffect(() => {
-  //   const currWordElements = currentWord.split("");
-
-  //   if(currWordElements.includes(guessedLetters[0])) {
-
-  //   }
-
-  // }, [guessedLetters]);
+  const wrongGuessCount = guessedLetters.filter(
+    (letter) => !currentWord.includes(letter),
+  ).length;
 
   function addGuessedLetter(letter) {
     setGuessedLetters((prevLetters) =>
@@ -31,8 +26,8 @@ function App() {
     <main>
       <Header />
       <GameStatus />
-      <LanguageTracker />
-      <WordDisplay word={currentWord} />
+      <LanguageTracker wrongGuessCount={wrongGuessCount} />
+      <WordDisplay word={currentWord} guessedLetters={guessedLetters} />
       <Keyboard
         addLetter={addGuessedLetter}
         word={currentWord}
