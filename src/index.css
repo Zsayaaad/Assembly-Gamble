@@ -147,6 +147,11 @@ span.chip-lang.lost::before {
   font-size: 16px;
 }
 
+.keyboard button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
 .keyboard button:hover {
   opacity: 0.9;
 }

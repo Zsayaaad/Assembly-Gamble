@@ -61,6 +61,7 @@ function App() {
       <LanguageTracker wrongGuessCount={wrongGuessCount} />
       <WordDisplay word={currentWord} guessedLetters={guessedLetters} />
       <Keyboard
+        isGameOver={isGameOver}
         addLetter={addGuessedLetter}
         word={currentWord}
         guessedLetters={guessedLetters}

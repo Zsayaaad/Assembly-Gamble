@@ -2,7 +2,7 @@
  * This component just for display the letters.
  * just for telling the parent which letter was pressed.
  */
-const Keyboard = ({ addLetter, word, guessedLetters }) => {
+const Keyboard = ({ addLetter, word, guessedLetters, isGameOver }) => {
   // A component should only have its own state if that data is private
   //  and doesn't affect anything else.
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -21,7 +21,7 @@ const Keyboard = ({ addLetter, word, guessedLetters }) => {
         className={className}
         key={letter}
         onClick={() => addLetter(letter)}
-        disabled={isGuessed}
+        disabled={isGuessed || isGameOver}
       >
         {letter.toUpperCase()}
       </button>
