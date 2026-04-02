@@ -22,10 +22,23 @@ function App() {
   const isGameWon = currentWord
     .split("")
     .every((letter) => guessedLetters.includes(letter));
-
   const isGameLost = wrongGuessCount >= languages.length - 1 ? true : false;
-
   const isGameOver = isGameLost || isGameWon;
+
+  // FAREWELL TEXT
+  /**
+   * I need to create thing that when user press incorrect letter, render farewell text on screen on the name
+   * of this language that affected by this incorrect letter
+   * =========================================== SCRATCH THE PROCESS
+   * - Get from `guessedLetters` `lastGuessedLetter`
+   * - and from currentWord, we know if this guess is correct or incorrect
+   *
+   * - if !isGameOver && isLastGuessIncorrect
+   * -- call getFarewellText() that take name of the languages[wrongGuessCount - 1]
+   */
+  const lastGuessedLetter = guessedLetters[guessedLetters.length - 1];
+  const isLastGuessIncorrect =
+    lastGuessedLetter && !currentWord.includes(lastGuessedLetter);
 
   // ADDING EACH LETTER THAT USER PRESSED ON KEYBOARD
   function addGuessedLetter(letter) {
@@ -37,7 +50,14 @@ function App() {
   return (
     <main>
       <Header />
-      {<GameStatus gameOver={isGameOver} gameWon={isGameWon} />}
+      {
+        <GameStatus
+          isGameOver={isGameOver}
+          isGameWon={isGameWon}
+          wrongGuessCount={wrongGuessCount}
+          isLastGuessIncorrect={isLastGuessIncorrect}
+        />
+      }
       <LanguageTracker wrongGuessCount={wrongGuessCount} />
       <WordDisplay word={currentWord} guessedLetters={guessedLetters} />
       <Keyboard

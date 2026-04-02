@@ -1,15 +1,27 @@
-const GameStatus = ({ gameOver, gameWon }) => {
+import { languages } from "../languages";
+import { getFarewellText } from "../utils";
+
+const GameStatus = ({
+  isGameOver,
+  isGameWon,
+  wrongGuessCount,
+  isLastGuessIncorrect,
+}) => {
   function renderGameStatus() {
-    if (!gameOver) {
-      return null;
-    } else if (gameWon) {
+    /**
+     * - if !isGameOver && isLastGuessIncorrect
+     * -- call getFarewellText() that take name of the languages[wrongGuessCount - 1]
+     */
+    if (!isGameOver && isLastGuessIncorrect) {
+      return <p>{getFarewellText(languages[wrongGuessCount - 1].name)}</p>;
+    } else if (isGameWon) {
       return (
         <>
           <h2>You Win!</h2>
           <p>Well done! 🎉</p>
         </>
       );
-    } else {
+    } else if (isGameOver && !isGameWon) {
       return (
         <>
           <h2>Game over!</h2>
@@ -17,9 +29,13 @@ const GameStatus = ({ gameOver, gameWon }) => {
         </>
       );
     }
+    return null;
   }
 
-  const className = `game-status ${gameOver ? (gameWon ? "won" : "lost") : ""}`;
+  const isFareWell = !isGameOver && isLastGuessIncorrect;
+  const className = `game-status ${
+    isGameOver ? (isGameWon ? "won" : "lost") : isFareWell ? "farewell" : ""
+  }`;
 
   return <div className={className}>{renderGameStatus()}</div>;
 };

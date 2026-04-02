@@ -50,6 +50,14 @@ header p {
   background-color: #ba2a2a;
 }
 
+.game-status.farewell {
+  background-color: #7a5ea7;
+  font-weight: 400;
+  font-style: Italic;
+  font-size: 16px;
+  color: #f9f4da;
+}
+
 .game-status h2 {
   font-weight: 500;
   font-size: 20px;
