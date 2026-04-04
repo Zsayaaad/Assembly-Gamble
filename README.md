@@ -1,25 +1,84 @@
-Project Planning
+# Assembly Gamble
 
-    Questions to ask myself before writing any code:
+A Hangman-style word guessing game built with React and Vite.
 
-        - What r the main container of elements I need in this app?
-            1- Header for the static info at the top
-            2- The bar for win or lose
-            3- list of languages
-            4- The word that we're trying to guess
-            5- keyboard section that is clickable by user
-            6- Finally the button of starting a new game, It only appears at the end of the game.
+## How to Play
 
-        - What values needs to be saved in states vs. what values can be derived from the existing state?
-            STORE IN STATE:
-            - secretWord
-            - languagesLife(wrongGuesses)
-            - guessedLetters
-            - attemptsRemaining -- Counter down
-            - gameStatus -- playing | won | lost
+1. Click letters on the keyboard to guess the hidden word
+2. Each wrong guess eliminates a programming language
+3. Guess the word before all languages are gone — or it's Assembly for you 😭
 
+## Getting Started
 
-        - How will the user interact with my app? What events do I need to handle?
-            - Keyboard is the main point for interact with the user
-            - listen to buttons on keyboard if it green or yellow or red
-            - button of new game to restart the game when the game is over
+```bash
+npm install
+npm run dev
+```
+
+## Project Structure
+
+```
+src/
+├── App.jsx           # Root component, manages game state
+├── languages.js      # Language data with colors
+├── utils.js          # Farewell message generator
+└── components/
+    ├── Header.jsx           # Static title and description
+    ├── GameStatus.jsx       # Win/lose/farewell messages
+    ├── LanguageTracker.jsx  # Visual language "life" chips
+    ├── WordDisplay.jsx      # Reveals correctly guessed letters
+    ├── Keyboard.jsx         # Clickable A-Z letter buttons
+    └── NewGameButton.jsx    # Appears when game ends
+```
+
+## How React Made This Project Easier
+
+### Component-Based Architecture
+
+Each part of the UI is a self-contained component. The keyboard, word display, and language tracker are independent pieces that don't need to know about each other — `App` coordinates them all.
+
+### Declarative UI
+
+The UI describes itself based on state. The keyboard buttons automatically turn green or red depending on whether the guessed letter is in the word. No manual DOM manipulation needed.
+
+```jsx
+// Keyboard.jsx — class changes happen automatically
+const className = isCorrect ? "correct" : isWrong ? "wrong" : "";
+```
+
+### Derived State
+
+Instead of tracking everything separately, some values are calculated from existing state:
+
+```jsx
+// wrongGuessCount is derived from guessedLetters
+const wrongGuessCount = guessedLetters.filter(
+  (letter) => !currentWord.includes(letter),
+).length;
+```
+
+This guarantees the UI is always consistent — no risk of the counter falling out of sync.
+
+### Conditional Rendering
+
+Components show or hide themselves based on conditions:
+
+```jsx
+// Only show New Game button when the game is over
+{
+  isGameOver && <NewGameButton />;
+}
+```
+
+```jsx
+// Only show farewell text on a wrong guess
+{
+  !isGameOver && isLastGuessIncorrect && (
+    <p>{getFarewellText(languages[wrongGuessCount - 1].name)}</p>
+  );
+}
+```
+
+### State Lifting
+
+All game state lives in `App`. Child components receive data through props and communicate back through callback functions (`addLetter`). This keeps state predictable and easy to reason about.
