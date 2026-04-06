@@ -14,7 +14,7 @@ function App() {
   // Correct letter: display the letter in WordDisplay component & change the key color in keyboard
   // Wrong letter: kill a language & change the key color in keyboard
   const [guessedLetters, setGuessedLetters] = useState([]);
-  const [currentWord, setCurrentWord] = useState("react");
+  const [currentWord, setCurrentWord] = useState(() => chooseRandomWord());
 
   // COUNTING EACH WRONG PRESS
   const wrongGuessCount = guessedLetters.filter(
