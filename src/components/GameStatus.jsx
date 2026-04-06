@@ -7,13 +7,29 @@ const GameStatus = ({
   wrongGuessCount,
   isLastGuessIncorrect,
 }) => {
+  const maxGuesses = languages.length - 1;
+  const remainingGuesses = maxGuesses - wrongGuessCount;
+
   function renderGameStatus() {
     /**
      * - if !isGameOver && isLastGuessIncorrect
      * -- call getFarewellText() that take name of the languages[wrongGuessCount - 1]
      */
     if (!isGameOver && isLastGuessIncorrect) {
-      return <p>{getFarewellText(languages[wrongGuessCount - 1].name)}</p>;
+      return (
+        <>
+          <p>{getFarewellText(languages[wrongGuessCount - 1].name)}</p>
+          <p className="remaining-guesses">
+            Remaining guesses: {remainingGuesses}
+          </p>
+        </>
+      );
+    } else if (!isGameOver && wrongGuessCount > 0) {
+      return (
+        <p className="remaining-guesses">
+          Remaining guesses: {remainingGuesses}
+        </p>
+      );
     } else if (isGameWon) {
       return (
         <>
@@ -32,7 +48,8 @@ const GameStatus = ({
     return null;
   }
 
-  const isFareWell = !isGameOver && isLastGuessIncorrect;
+  const isFareWell =
+    !isGameOver && (isLastGuessIncorrect || wrongGuessCount > 0);
   const className = `game-status ${
     isGameOver ? (isGameWon ? "won" : "lost") : isFareWell ? "farewell" : ""
   }`;

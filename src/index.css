@@ -72,6 +72,12 @@ header p {
   margin: 0;
 }
 
+.remaining-guesses {
+  font-size: 14px;
+  color: #fcba29;
+  margin-top: 4px;
+}
+
 .languages {
   max-width: 350px;
   display: flex;
