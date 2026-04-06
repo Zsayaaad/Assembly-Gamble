@@ -37,7 +37,11 @@ const GameStatus = ({
     isGameOver ? (isGameWon ? "won" : "lost") : isFareWell ? "farewell" : ""
   }`;
 
-  return <div className={className}>{renderGameStatus()}</div>;
+  return (
+    <div className={className} aria-live="polite" role="status">
+      {renderGameStatus()}
+    </div>
+  );
 };
 
 export default GameStatus;

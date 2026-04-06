@@ -20,8 +20,10 @@ const Keyboard = ({ addLetter, word, guessedLetters, isGameOver }) => {
       <button
         className={className}
         key={letter}
-        onClick={() => addLetter(letter)}
         disabled={isGuessed || isGameOver}
+        aria-disabled={guessedLetters.includes(letter)}
+        aria-label={`Letter ${letter}`}
+        onClick={() => addLetter(letter)}
       >
         {letter.toUpperCase()}
       </button>

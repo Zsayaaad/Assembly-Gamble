@@ -6,12 +6,13 @@ import LanguageTracker from "./components/LanguageTracker";
 import WordDisplay from "./components/WordDisplay";
 import NewGameButton from "./components/NewGameButton";
 import { languages } from "./languages";
+import { chooseRandomWord } from "./utils";
 
 function App() {
   // Correct letter: display the letter in WordDisplay component & change the key color in keyboard
   // Wrong letter: kill a language & change the key color in keyboard
   const [guessedLetters, setGuessedLetters] = useState([]);
-  const [currentWord] = useState("react");
+  const [currentWord, setCurrentWord] = useState(() => chooseRandomWord());
 
   // COUNTING EACH WRONG PRESS
   const wrongGuessCount = guessedLetters.filter(
@@ -22,7 +23,7 @@ function App() {
   const isGameWon = currentWord
     .split("")
     .every((letter) => guessedLetters.includes(letter));
-  const isGameLost = wrongGuessCount >= languages.length - 1 ? true : false;
+  const isGameLost = wrongGuessCount >= languages.length - 1; // 9 - 1
   const isGameOver = isGameLost || isGameWon;
 
   // FAREWELL TEXT
@@ -47,6 +48,11 @@ function App() {
     );
   }
 
+  function resetGame() {
+    setGuessedLetters([]);
+    setCurrentWord(chooseRandomWord());
+  }
+
   return (
     <main>
       <Header />
@@ -59,14 +65,18 @@ function App() {
         />
       }
       <LanguageTracker wrongGuessCount={wrongGuessCount} />
-      <WordDisplay word={currentWord} guessedLetters={guessedLetters} />
+      <WordDisplay
+        word={currentWord}
+        guessedLetters={guessedLetters}
+        isGameLost={isGameLost}
+      />
       <Keyboard
         isGameOver={isGameOver}
         addLetter={addGuessedLetter}
         word={currentWord}
         guessedLetters={guessedLetters}
       />
-      {isGameOver && <NewGameButton />}
+      {isGameOver && <NewGameButton resetGame={resetGame} />}
     </main>
   );
 }

@@ -113,6 +113,10 @@ span.chip-lang.lost::before {
   height: 40px;
 }
 
+.word span.missing {
+  color: #f06262;
+}
+
 .word span {
   width: 28px;
   height: 23px;

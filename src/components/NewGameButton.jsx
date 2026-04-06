@@ -1,5 +1,9 @@
-const NewGameButton = () => {
-  return <button className="new-game">New Game</button>;
+const NewGameButton = ({ resetGame }) => {
+  return (
+    <button className="new-game" onClick={resetGame}>
+      New Game
+    </button>
+  );
 };
 
 export default NewGameButton;
